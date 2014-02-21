@@ -13,11 +13,14 @@ namespace AC.Model
 
         SqlConnection CreateConnection()
         {
-
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                return conn;
+            }
         }
-        DALBase()
+        public DALBase()
         {
-
+            _connectionString = WebConfigurationManager.ConnectionStrings["ApplicationService"].ConnectionString;
         }
         /*static string connectionString = WebConfigurationManager.ConnectionStrings["ApplicationService"].ConnectionString;
         public static string what()

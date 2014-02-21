@@ -7,27 +7,28 @@ namespace AC.Model
 {
     public class ContactDAL : DALBase
     {
-        void DeleteContact()
+        public void DeleteContact()
         {
 
         }
-        Contact GetContactById(int contactId)
+        public Contact GetContactById(int contactId)
+        {
+            return new Contact();
+        }
+        public IEnumerable<Contact> GetContacts()
+        {
+            return new List<Contact>();
+        }
+        public IEnumerable<Contact> GetContactsPageWise(int maximumRows, int startRowIndex, out int totalRowCount)
+        {
+            totalRowCount = 1;
+            return new List<Contact>();
+        }
+        public void InsertContact(Contact contact)
         {
 
         }
-        IEnumerable<Contact> GetContacts()
-        {
-
-        }
-        IEnumerable<Contact> GetContactsPageWise(int maximumRows, int startRowIndex, out int totalRowCount)
-        {
-
-        }
-        void InsertContact(Contact contact)
-        {
-
-        }
-        void UpdateContact(Contact contact)
+        public void UpdateContact(Contact contact)
         {
 
         }

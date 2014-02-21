@@ -68,7 +68,10 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\ContactDAL.cs" />
     <Compile Include="Model\DALBase.cs" />
+    <Compile Include="Model\Service.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -7,22 +7,22 @@ namespace AC.Model
 {
     public class Contact
     {
-        int ContactId
+        public int ContactId
         {
             get;
             set;
         }
-        string EmailAddress
+        public string EmailAddress
         {
             get;
             set;
         }
-        string FirstName
+        public string FirstName
         {
             get;
             set;
         }
-        string LastName
+        public string LastName
         {
             get;
             set;
