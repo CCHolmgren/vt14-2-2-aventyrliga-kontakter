@@ -11,12 +11,9 @@ namespace AC.Model
     {
         string _connectionString;
 
-        SqlConnection CreateConnection()
+        protected SqlConnection CreateConnection()
         {
-            using (var conn = new SqlConnection(_connectionString))
-            {
-                return conn;
-            }
+            return new SqlConnection(_connectionString);
         }
         public DALBase()
         {
