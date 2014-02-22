@@ -9,6 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
             <asp:ListView ID="ListView1" runat="server" 
                 ItemType="AC.Model.Contact" 
                 SelectMethod="ListView1_GetData"
@@ -16,7 +17,7 @@
                 UpdateMethod="ListView1_UpdateItem"
                 DeleteMethod="ListView1_DeleteItem" 
                 InsertItemPosition="FirstItem"
-                DataKeyNames="ContactId" ViewStateMode="Enabled">
+                DataKeyNames="contactId" ViewStateMode="Enabled">
                 <LayoutTemplate>
                     <table>
                         <tr>

@@ -38,7 +38,7 @@ namespace AC
             }
             catch
             {
-                ModelState.AddModelError("", "Ett oväntat fel inträffade.");
+                ModelState.AddModelError("", "Ett oväntat fel inträffade vid skapandet av kontakten.");
             }
             /*var item = new AC.Model.Contact();
             TryUpdateModel(item);
@@ -50,16 +50,16 @@ namespace AC
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
-        public void ListView1_UpdateItem(int id)
+        public void ListView1_UpdateItem(int contactId)
         {
             try
             {
-                Contact contact = Service.GetContact(id);
+                Contact contact = Service.GetContact(contactId);
 
                 if (contact == null)
                 {
                     // The item wasn't found
-                    ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
+                    ModelState.AddModelError("", String.Format("Item with id {0} was not found", contactId));
                     return;
                 }
 
@@ -67,25 +67,25 @@ namespace AC
                 {
                     // Save changes here, e.g. MyDataLayer.SaveChanges();
                     Service.SaveContact(contact);
-                    Response.Redirect("");
+                    Response.Redirect("?page=0");
                 }
             }
             catch
             {
-                ModelState.AddModelError("", "Ett oväntat fel inträffade.");
+                ModelState.AddModelError("", "Ett oväntat fel inträffade vid uppdateringen av kontakten.");
             }
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
-        public void ListView1_DeleteItem(int id)
+        public void ListView1_DeleteItem(int contactId)
         {
             try
             {
-                Service.DeleteContact(id);
+                Service.DeleteContact(contactId);
             }
             catch
             {
-                ModelState.AddModelError("", "Ett oväntat fel inträffade.");
+                ModelState.AddModelError("", "Ett oväntat fel inträffade vid borttagningen av kontakten.");
             }
         }
     }
