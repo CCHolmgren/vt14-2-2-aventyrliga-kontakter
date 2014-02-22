@@ -24,6 +24,11 @@ namespace AC
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            ListView1.InsertItemPosition = InsertItemPosition.None;
+        }
+        protected void NewContactButton_Click(object sender, EventArgs e)
+        {
+            ListView1.InsertItemPosition = InsertItemPosition.FirstItem;
         }
 
         // The return type can be changed to IEnumerable, however to support

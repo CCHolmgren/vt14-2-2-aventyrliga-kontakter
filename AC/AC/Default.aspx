@@ -10,6 +10,7 @@
     <form id="form1" runat="server">
         <div>
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+            <asp:Button Text="Ny kontakt" ID="NewContactButton" OnClick="NewContactButton_Click" runat="server" />
             <asp:ListView ID="ListView1" runat="server" 
                 ItemType="AC.Model.Contact" 
                 SelectMethod="ListView1_GetData"
@@ -66,36 +67,24 @@
                 <EditItemTemplate>
                     <td>
                         <asp:TextBox runat="server" ID="FirstNameEdit" Text="<%# BindItem.FirstName %>"/>
-                        <asp:RegularExpressionValidator 
-                            ErrorMessage="Förnamnet måste ha en längd mellan 1 och 50 tecken." 
-                            
-                            ControlToValidate="FirstNameEdit" 
-                            ID="FirstNameEditValidator" 
-                            runat="server" 
-                            ValidationExpression="^.{1,50}$" Display="Dynamic" />
+                        <asp:RequiredFieldValidator ErrorMessage="errormessage" ControlToValidate="FirstNameEdit" runat="server" />
                     </td>
                     <td>
                         <asp:TextBox runat="server" ID="LastNameEdit" Text="<%# BindItem.LastName %>"/>  
-                        <asp:RegularExpressionValidator 
-                            ErrorMessage="Efternamnet måste ha en längd mellan 1 och 50 tecken." 
-                            
-                            ControlToValidate="LastNameEdit" 
-                            ID="LastNameEditValidator" 
-                            ValidationExpression="^.{1,50}$" 
-                            runat="server" Display="Dynamic" />
+                        <asp:RequiredFieldValidator ErrorMessage="errormessage" ControlToValidate="LastNameEdit" runat="server" />
                     </td>
                     <td>
                         <asp:TextBox runat="server" ID="EmailAddressEdit" Text="<%# BindItem.EmailAddress %>"/>
+                        <asp:RequiredFieldValidator ErrorMessage="errormessage" ControlToValidate="EmailAddressEdit" runat="server" />
                         <asp:RegularExpressionValidator 
-                            ErrorMessage="Fyll i en giltig email-address" 
-                            
+                            ErrorMessage="Fyll i en giltig email-address"
                             ControlToValidate="EmailAddressEdit" 
                             ID="EmailAddressEditValidator" 
                             ValidationExpression="^.+@.+$" 
                             runat="server" Display="Dynamic" />  
                     </td>
                     <td>
-                        <asp:LinkButton CommandName="Update" runat="server" ValidationGroup="EditValidationGroup" Text="Spara" />  
+                        <asp:LinkButton CommandName="Update" runat="server" Text="Spara" />  
                     </td>
                     <td>
                         <asp:LinkButton CommandName="Cancel" runat="server" Text="Avbryt"/>  
@@ -105,27 +94,17 @@
                     <tr>
                         <td>
                             <asp:TextBox runat="server" ID="FirstNameInsert" Text="<%# BindItem.FirstName %>"/>
-                            <asp:RegularExpressionValidator 
-                                ErrorMessage="Förnamnet måste ha en längd mellan 1 och 50 tecken." 
-                                
-                                ControlToValidate="FirstNameInsert" 
-                                ID="FirstNameInsertValidator" 
-                                runat="server" 
-                                ValidationExpression="[a-zA-Z]{1,50}" Display="Dynamic" />
+                            <asp:RequiredFieldValidator ErrorMessage="errormessage" ControlToValidate="FirstNameInsert" runat="server" />
                         </td>
                         <td>
                             <asp:TextBox runat="server" ID="LastNameInsert" Text="<%# BindItem.LastName %>"/>
-                            <asp:RegularExpressionValidator 
-                                ErrorMessage="Efternamnet måste ha en längd mellan 1 och 50 tecken." 
-                                ID="LastNameInsertValidator" 
-                                runat="server" 
-                                ValidationExpression="[a-zA-Z]{1,50}" Display="Dynamic" ControlToValidate="LastNameInsert" />
+                            <asp:RequiredFieldValidator ErrorMessage="errormessage" ControlToValidate="LastNameInsert" runat="server" />
                         </td>
                         <td>
                             <asp:TextBox runat="server" ID="EmailAddressInsert" Text="<%# BindItem.EmailAddress %>"/>
+                            <asp:RequiredFieldValidator ErrorMessage="errormessage" ControlToValidate="EmailAddressInsert" runat="server" />
                             <asp:RegularExpressionValidator 
-                                ErrorMessage="Fyll i en giltig email-address" 
-                                
+                                ErrorMessage="Fyll i en giltig email-address"
                                 ControlToValidate="EmailAddressInsert" 
                                 ID="EmailAddressInsertValidator" 
                                 ValidationExpression=".+@.+" 
