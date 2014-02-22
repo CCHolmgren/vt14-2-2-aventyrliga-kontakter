@@ -56,7 +56,7 @@
                             <asp:LinkButton Text="Redigera" CommandName="Edit" runat="server" />
                         </td>
                         <td>
-                            <asp:Label Text="text" runat="server" />
+                            <asp:LinkButton Text="Ta bort" CommandName="Delete" runat="server" />
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -79,7 +79,21 @@
                 </EditItemTemplate>
                 <InsertItemTemplate>
                     <tr>
-
+                        <td>
+                            <asp:TextBox runat="server" ID="FirstName"/>  
+                        </td>
+                        <td>
+                            <asp:TextBox runat="server" ID="LastName"/>
+                        </td>
+                        <td>
+                            <asp:TextBox runat="server" ID="EmailAddress"/>
+                        </td>
+                        <td>
+                            <asp:LinkButton Text="Lägg till" CommandName="Insert" runat="server" />
+                        </td>
+                        <td>
+                            <asp:LinkButton Text="Rensa" CommandName="Cancel" runat="server" />
+                        </td>
                     </tr>
                 </InsertItemTemplate>
             </asp:ListView>

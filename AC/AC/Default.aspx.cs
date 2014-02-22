@@ -29,15 +29,23 @@ namespace AC
         {
             return Service.GetContactsPageWise(maximumRows, startRowIndex, out totalRowCount);
         }
-        public void ListView1_InsertItem()
+        public void ListView1_InsertItem(Contact contact)
         {
-            var item = new AC.Model.Contact();
+            try
+            {
+                Service.SaveContact(contact);
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Ett oväntat fel inträffade.");
+            }
+            /*var item = new AC.Model.Contact();
             TryUpdateModel(item);
             if (ModelState.IsValid)
             {
                 // Save changes here
 
-            }
+            }*/
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
@@ -56,10 +64,9 @@ namespace AC
 
                 if (TryUpdateModel(contact))
                 {
+                    // Save changes here, e.g. MyDataLayer.SaveChanges();
                     Service.SaveContact(contact);
                     Response.Redirect("");
-                    // Save changes here, e.g. MyDataLayer.SaveChanges();
-
                 }
             }
             catch
@@ -71,7 +78,14 @@ namespace AC
         // The id parameter name should match the DataKeyNames value set on the control
         public void ListView1_DeleteItem(int id)
         {
-
+            try
+            {
+                Service.DeleteContact(id);
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Ett oväntat fel inträffade.");
+            }
         }
     }
 }
