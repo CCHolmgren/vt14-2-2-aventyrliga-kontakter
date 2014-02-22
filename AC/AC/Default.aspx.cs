@@ -34,6 +34,7 @@ namespace AC
             try
             {
                 Service.SaveContact(contact);
+                Response.Redirect("");
             }
             catch
             {

@@ -84,7 +84,8 @@ namespace AC.Model
                     }
                 }
             return null;
-        }}
+            }
+        }
         public IEnumerable<Contact> GetContactsPageWise(int maximumRows, int startRowIndex, out int totalRowCount)
         {
             using (var conn = CreateConnection())
@@ -163,9 +164,38 @@ namespace AC.Model
         }
         public void InsertContact(Contact contact)
         {
+            using (var conn = CreateConnection())
+            {
+                SqlCommand cmd = new SqlCommand("Person.uspAddContact", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = contact.FirstName;
+                cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = contact.LastName;
+                cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = contact.EmailAddress;
+
+                cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+
+                contact.ContactId = (int)cmd.Parameters["@ContactID"].Value;
+            }
         }
         public void UpdateContact(Contact contact)
         {
+            using (var conn = CreateConnection())
+            {
+                SqlCommand cmd = new SqlCommand("Person.uspUpdateContact", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Value = contact.ContactId;
+                cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = contact.FirstName;
+                cmd.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = contact.LastName;
+                cmd.Parameters.Add("@EmailAddress", SqlDbType.NVarChar, 50).Value = contact.EmailAddress;
+
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

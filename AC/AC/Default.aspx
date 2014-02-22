@@ -14,7 +14,9 @@
                 SelectMethod="ListView1_GetData"
                 InsertMethod="ListView1_InsertItem"
                 UpdateMethod="ListView1_UpdateItem"
-                DeleteMethod="ListView1_DeleteItem" InsertItemPosition="FirstItem">
+                DeleteMethod="ListView1_DeleteItem" 
+                InsertItemPosition="FirstItem"
+                DataKeyNames="ContactId" ViewStateMode="Enabled">
                 <LayoutTemplate>
                     <table>
                         <tr>
@@ -80,13 +82,13 @@
                 <InsertItemTemplate>
                     <tr>
                         <td>
-                            <asp:TextBox runat="server" ID="FirstName"/>  
+                            <asp:TextBox runat="server" ID="FirstName" Text="<%# BindItem.FirstName %>"/>  
                         </td>
                         <td>
-                            <asp:TextBox runat="server" ID="LastName"/>
+                            <asp:TextBox runat="server" ID="LastName" Text="<%# BindItem.LastName %>"/>
                         </td>
                         <td>
-                            <asp:TextBox runat="server" ID="EmailAddress"/>
+                            <asp:TextBox runat="server" ID="EmailAddress" Text="<%# BindItem.EmailAddress %>"/>
                         </td>
                         <td>
                             <asp:LinkButton Text="Lägg till" CommandName="Insert" runat="server" />

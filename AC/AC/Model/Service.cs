@@ -33,7 +33,14 @@ namespace AC.Model
         }
         public void SaveContact(Contact contact) 
         {
-            ContactDAL.InsertContact(contact);
+            if (contact.ContactId == 0)
+            {
+                ContactDAL.InsertContact(contact);
+            }
+            else
+            {
+                ContactDAL.UpdateContact(contact);
+            }
         }
     }
 }
