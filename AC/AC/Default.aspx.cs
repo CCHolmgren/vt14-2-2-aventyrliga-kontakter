@@ -15,6 +15,13 @@ namespace AC
         {
             get { return _service ?? (_service = new Service()); }
         }
+
+        private string _successMessage;
+        private string SuccessMessage
+        {
+            get { return Session["SuccessMessage"] as string; }
+            set { Session["SuccessMessage"] = value; }
+        }
         protected void Page_Load(object sender, EventArgs e)
         {
         }
