@@ -38,14 +38,17 @@ namespace AC
         }
         public void ListView1_InsertItem(Contact contact)
         {
-            try
+            if (Page.IsValid)
             {
-                Service.SaveContact(contact);
-                Response.Redirect("");
-            }
-            catch
-            {
-                ModelState.AddModelError("", "Ett oväntat fel inträffade vid skapandet av kontakten.");
+                try
+                {
+                    Service.SaveContact(contact);
+                    Response.Redirect("");
+                }
+                catch
+                {
+                    ModelState.AddModelError("", "Ett oväntat fel inträffade vid skapandet av kontakten.");
+                }
             }
             /*var item = new AC.Model.Contact();
             TryUpdateModel(item);
@@ -59,27 +62,30 @@ namespace AC
         // The id parameter name should match the DataKeyNames value set on the control
         public void ListView1_UpdateItem(int contactId)
         {
-            try
+            if (Page.IsValid)
             {
-                Contact contact = Service.GetContact(contactId);
-
-                if (contact == null)
+                try
                 {
-                    // The item wasn't found
-                    ModelState.AddModelError("", String.Format("Item with id {0} was not found", contactId));
-                    return;
-                }
+                    Contact contact = Service.GetContact(contactId);
 
-                if (TryUpdateModel(contact))
-                {
-                    // Save changes here, e.g. MyDataLayer.SaveChanges();
-                    Service.SaveContact(contact);
-                    Response.Redirect("?page=0");
+                    if (contact == null)
+                    {
+                        // The item wasn't found
+                        ModelState.AddModelError("", String.Format("Item with id {0} was not found", contactId));
+                        return;
+                    }
+
+                    if (TryUpdateModel(contact))
+                    {
+                        // Save changes here, e.g. MyDataLayer.SaveChanges();
+                        Service.SaveContact(contact);
+                        Response.Redirect("?page=0");
+                    }
                 }
-            }
-            catch
-            {
-                ModelState.AddModelError("", "Ett oväntat fel inträffade vid uppdateringen av kontakten.");
+                catch
+                {
+                    ModelState.AddModelError("", "Ett oväntat fel inträffade vid uppdateringen av kontakten.");
+                }
             }
         }
 

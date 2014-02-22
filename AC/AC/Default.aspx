@@ -68,7 +68,7 @@
                         <asp:TextBox runat="server" ID="FirstNameEdit" Text="<%# BindItem.FirstName %>"/>
                         <asp:RegularExpressionValidator 
                             ErrorMessage="Förnamnet måste ha en längd mellan 1 och 50 tecken." 
-                            ValidationGroup="EditValidationGroup" 
+                            
                             ControlToValidate="FirstNameEdit" 
                             ID="FirstNameEditValidator" 
                             runat="server" 
@@ -78,7 +78,7 @@
                         <asp:TextBox runat="server" ID="LastNameEdit" Text="<%# BindItem.LastName %>"/>  
                         <asp:RegularExpressionValidator 
                             ErrorMessage="Efternamnet måste ha en längd mellan 1 och 50 tecken." 
-                            ValidationGroup="EditValidationGroup" 
+                            
                             ControlToValidate="LastNameEdit" 
                             ID="LastNameEditValidator" 
                             ValidationExpression="^.{1,50}$" 
@@ -88,7 +88,7 @@
                         <asp:TextBox runat="server" ID="EmailAddressEdit" Text="<%# BindItem.EmailAddress %>"/>
                         <asp:RegularExpressionValidator 
                             ErrorMessage="Fyll i en giltig email-address" 
-                            ValidationGroup="EditValidationGroup" 
+                            
                             ControlToValidate="EmailAddressEdit" 
                             ID="EmailAddressEditValidator" 
                             ValidationExpression="^.+@.+$" 
@@ -107,34 +107,32 @@
                             <asp:TextBox runat="server" ID="FirstNameInsert" Text="<%# BindItem.FirstName %>"/>
                             <asp:RegularExpressionValidator 
                                 ErrorMessage="Förnamnet måste ha en längd mellan 1 och 50 tecken." 
-                                ValidationGroup="InsertValidationGroup" 
+                                
                                 ControlToValidate="FirstNameInsert" 
                                 ID="FirstNameInsertValidator" 
                                 runat="server" 
-                                ValidationExpression=".{1,50}" Display="Dynamic" />
+                                ValidationExpression="[a-zA-Z]{1,50}" Display="Dynamic" />
                         </td>
                         <td>
                             <asp:TextBox runat="server" ID="LastNameInsert" Text="<%# BindItem.LastName %>"/>
                             <asp:RegularExpressionValidator 
                                 ErrorMessage="Efternamnet måste ha en längd mellan 1 och 50 tecken." 
-                                ValidationGroup="InsertValidationGroup" 
-                                ControlToValidate="LastNameInsert" 
                                 ID="LastNameInsertValidator" 
                                 runat="server" 
-                                ValidationExpression=".{1,50}" Display="Dynamic" />
+                                ValidationExpression="[a-zA-Z]{1,50}" Display="Dynamic" ControlToValidate="LastNameInsert" />
                         </td>
                         <td>
                             <asp:TextBox runat="server" ID="EmailAddressInsert" Text="<%# BindItem.EmailAddress %>"/>
                             <asp:RegularExpressionValidator 
                                 ErrorMessage="Fyll i en giltig email-address" 
-                                ValidationGroup="InsertValidationGroup" 
+                                
                                 ControlToValidate="EmailAddressInsert" 
                                 ID="EmailAddressInsertValidator" 
                                 ValidationExpression=".+@.+" 
                                 runat="server" Display="Dynamic" />  
                         </td>
                         <td>
-                            <asp:LinkButton Text="Lägg till" CommandName="Insert" ValidationGroup="InsertValidationGroup" runat="server" />
+                            <asp:LinkButton Text="Lägg till" CommandName="Insert"  runat="server" />
                         </td>
                         <td>
                             <asp:LinkButton Text="Rensa" CommandName="Cancel" runat="server" />
