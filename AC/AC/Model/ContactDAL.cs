@@ -9,9 +9,18 @@ namespace AC.Model
 {
     public class ContactDAL : DALBase
     {
-        public void DeleteContact()
+        public void DeleteContact(int contactId)
         {
 
+            using (var conn = CreateConnection())
+            {
+                SqlCommand cmd = new SqlCommand("Person.uspRemoveContact", conn);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add("@ContactID", SqlDbType.Int, 4).Value = contactId;
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
         public Contact GetContactById(int contactId)
         {
@@ -43,7 +52,8 @@ namespace AC.Model
                     }
                 }
             return null;
-        }}
+            }
+        }
         public IEnumerable<Contact> GetContacts()
         {
             using (var conn = CreateConnection())
@@ -153,11 +163,9 @@ namespace AC.Model
         }
         public void InsertContact(Contact contact)
         {
-
         }
         public void UpdateContact(Contact contact)
         {
-
         }
     }
 }
