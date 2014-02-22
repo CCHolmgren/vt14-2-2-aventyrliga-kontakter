@@ -29,17 +29,6 @@ namespace AC
         {
             return Service.GetContactsPageWise(maximumRows, startRowIndex, out totalRowCount);
         }
-
-        protected void ListView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void ListView1_SelectedIndexChanged1(object sender, EventArgs e)
-        {
-
-        }
-
         public void ListView1_InsertItem()
         {
             var item = new AC.Model.Contact();
@@ -54,19 +43,28 @@ namespace AC
         // The id parameter name should match the DataKeyNames value set on the control
         public void ListView1_UpdateItem(int id)
         {
-            AC.Model.Contact item = null;
-            // Load the item here, e.g. item = MyDataLayer.Find(id);
-            if (item == null)
+            try
             {
-                // The item wasn't found
-                ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
-                return;
-            }
-            TryUpdateModel(item);
-            if (ModelState.IsValid)
-            {
-                // Save changes here, e.g. MyDataLayer.SaveChanges();
+                Contact contact = Service.GetContact(id);
 
+                if (contact == null)
+                {
+                    // The item wasn't found
+                    ModelState.AddModelError("", String.Format("Item with id {0} was not found", id));
+                    return;
+                }
+
+                if (TryUpdateModel(contact))
+                {
+                    Service.SaveContact(contact);
+                    Response.Redirect("");
+                    // Save changes here, e.g. MyDataLayer.SaveChanges();
+
+                }
+            }
+            catch
+            {
+                ModelState.AddModelError("", "Ett oväntat fel inträffade.");
             }
         }
 

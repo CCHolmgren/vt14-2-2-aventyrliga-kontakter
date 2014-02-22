@@ -8,23 +8,24 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <asp:TextBox runat="server" ID="Textbox" Height="800" Width="800" TextMode="MultiLine" />
-    </div>
         <div>
             <asp:ListView ID="ListView1" runat="server" 
                 ItemType="AC.Model.Contact" 
                 SelectMethod="ListView1_GetData"
                 InsertMethod="ListView1_InsertItem"
                 UpdateMethod="ListView1_UpdateItem"
-                DeleteMethod="ListView1_DeleteItem">
+                DeleteMethod="ListView1_DeleteItem" InsertItemPosition="FirstItem">
                 <LayoutTemplate>
                     <table>
                         <tr>
-                            <td></td>
+                            <th>Förnamn</th>
+                            <th>Efternamn</th>
+                            <th>E-post</th>
+                            <th></th>
+                            <th></th>
                         </tr>
-                    </table>
                     <asp:PlaceHolder runat="server" ID="itemPlaceholder"/>
+                    </table>
                     <asp:DataPager PagedControlID="ListView1" runat="server" QueryStringField="page" PageSize="20">
                         <Fields>
                             <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowNextPageButton="false" ShowPreviousPageButton="false"/>
@@ -41,10 +42,46 @@
                     </asp:DataPager>
                 </LayoutTemplate>
                 <ItemTemplate>
-                    <li runat="server">
-                        <p><%# Item.FirstName %></p>
-                    </li>
+                    <tr>
+                        <td>
+                            <asp:Label Text="<%# Item.FirstName %>" runat="server" />
+                        </td>
+                        <td>
+                            <asp:Label Text="<%# Item.LastName %>" runat="server" />
+                        </td>
+                        <td>
+                            <asp:Label Text="<%# Item.EmailAddress %>" runat="server" />
+                        </td>
+                        <td>
+                            <asp:LinkButton Text="Redigera" CommandName="Edit" runat="server" />
+                        </td>
+                        <td>
+                            <asp:Label Text="text" runat="server" />
+                        </td>
+                    </tr>
                 </ItemTemplate>
+                <EditItemTemplate>
+                    <td>
+                        <asp:TextBox runat="server" ID="FirstName" Text="<%# BindItem.FirstName %>"/>  
+                    </td>
+                    <td>
+                        <asp:TextBox runat="server" ID="LastName" Text="<%# BindItem.LastName %>"/>  
+                    </td>
+                    <td>
+                        <asp:TextBox runat="server" ID="EmailAddress" Text="<%# BindItem.EmailAddress %>"/>  
+                    </td>
+                    <td>
+                        <asp:LinkButton CommandName="Update" runat="server" Text="Spara" />  
+                    </td>
+                    <td>
+                        <asp:LinkButton CommandName="Cancel" runat="server" Text="Avbryt"/>  
+                    </td>
+                </EditItemTemplate>
+                <InsertItemTemplate>
+                    <tr>
+
+                    </tr>
+                </InsertItemTemplate>
             </asp:ListView>
         </div>
     </form>
