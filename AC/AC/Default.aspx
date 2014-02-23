@@ -82,7 +82,7 @@
                             ControlToValidate="EmailAddressEdit" 
                             ID="EmailAddressEditValidator" 
                             ValidationExpression="^.+@.+$" 
-                            runat="server" Display="None" />  
+                            runat="server" Display="None" />
                     </td>
                     <td>
                         <asp:LinkButton CommandName="Update" runat="server" Text="Spara" />  

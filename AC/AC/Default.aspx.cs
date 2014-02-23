@@ -1,6 +1,7 @@
 ﻿using AC.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -100,10 +101,15 @@ namespace AC
 
                     if (TryUpdateModel(contact))
                     {
+                        List<ValidationResult> vr = new List<ValidationResult>();
+                        Validator.TryValidateObject(contact, new ValidationContext(contact), vr, true);
+                        vr.ForEach(x => ModelState.AddModelError("", x.ToString()));
+                        ModelState.AddModelError("", "längd: " + vr.Count);
+                        //ModelState.AddModelError("", vr.ToString());
                         // Save changes here, e.g. MyDataLayer.SaveChanges();
                         Service.SaveContact(contact);
                         DataPager dp = (DataPager)ListView1.FindControl("DataPager");
-                        Response.Redirect(String.Format("?page={0}",dp.StartRowIndex/dp.PageSize+1),true);
+                        //Response.Redirect(String.Format("?page={0}",dp.StartRowIndex/dp.PageSize+1),true);
                     }
                 }
                 catch(ArgumentException ax)
@@ -112,7 +118,7 @@ namespace AC
                 }
                 catch (System.Data.SqlClient.SqlException ex)
                 {
-                    ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid borttagning av kontakten."));
+                    ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid uppdateringen av kontakten."));
                 }
                 catch (ConnectionException cx)
                 {
