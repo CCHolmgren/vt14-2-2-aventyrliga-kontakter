@@ -43,10 +43,10 @@ namespace AC.Model
 
                 using (var reader = cmd.ExecuteReader())
                 {
-                    int contactIDindex = reader.GetOrdinal("@ContactId");
-                    int firstNameIndex = reader.GetOrdinal("@FirstName");
-                    int lastNameIndex = reader.GetOrdinal("@LastName");
-                    int emailAdressIndex = reader.GetOrdinal("@EmailAddress");
+                    int contactIDindex = reader.GetOrdinal("ContactId");
+                    int firstNameIndex = reader.GetOrdinal("FirstName");
+                    int lastNameIndex = reader.GetOrdinal("LastName");
+                    int emailAdressIndex = reader.GetOrdinal("EmailAddress");
 
                     if (reader.Read())
                     {
@@ -75,10 +75,10 @@ namespace AC.Model
                 
                 using (var reader = cmd.ExecuteReader())
                 {
-                    int contactIDindex = reader.GetOrdinal("@ContactId");
-                    int firstNameIndex = reader.GetOrdinal("@FirstName");
-                    int lastNameIndex = reader.GetOrdinal("@LastName");
-                    int emailAdressIndex = reader.GetOrdinal("@EmailAddress");
+                    int contactIDindex = reader.GetOrdinal("ContactId");
+                    int firstNameIndex = reader.GetOrdinal("FirstName");
+                    int lastNameIndex = reader.GetOrdinal("LastName");
+                    int emailAdressIndex = reader.GetOrdinal("EmailAddress");
 
                     while(reader.Read())
                     {
