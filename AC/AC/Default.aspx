@@ -88,7 +88,7 @@
                         <asp:LinkButton CommandName="Update" runat="server" Text="Spara" />  
                     </td>
                     <td>
-                        <asp:LinkButton CommandName="Cancel" runat="server" Text="Avbryt"/>  
+                        <asp:LinkButton CommandName="Cancel" CausesValidation="false" runat="server" Text="Avbryt"/>  
                     </td>
                 </EditItemTemplate>
                 <InsertItemTemplate>
@@ -115,7 +115,7 @@
                             <asp:LinkButton Text="Lägg till" CommandName="Insert"  runat="server" />
                         </td>
                         <td>
-                            <asp:LinkButton Text="Rensa" CommandName="Cancel" runat="server" />
+                            <asp:LinkButton Text="Rensa" CausesValidation="false" CommandName="Cancel" runat="server" />
                         </td>
                     </tr>
                 </InsertItemTemplate>
