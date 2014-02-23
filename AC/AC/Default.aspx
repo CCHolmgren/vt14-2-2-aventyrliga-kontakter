@@ -31,7 +31,7 @@
                         </tr>
                     <asp:PlaceHolder runat="server" ID="itemPlaceholder"/>
                     </table>
-                    <asp:DataPager PagedControlID="ListView1" runat="server" QueryStringField="page" PageSize="20">
+                    <asp:DataPager PagedControlID="ListView1" ID="DataPager" runat="server" QueryStringField="page" PageSize="20">
                         <Fields>
                             <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowNextPageButton="false" ShowPreviousPageButton="true"/>
                             <asp:NumericPagerField />

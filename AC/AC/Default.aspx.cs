@@ -102,7 +102,8 @@ namespace AC
                     {
                         // Save changes here, e.g. MyDataLayer.SaveChanges();
                         Service.SaveContact(contact);
-                        Response.Redirect("?page=0");
+                        DataPager dp = (DataPager)ListView1.FindControl("DataPager");
+                        Response.Redirect(String.Format("?page={0}",dp.StartRowIndex/dp.PageSize+1),true);
                     }
                 }
                 catch(ArgumentException ax)
