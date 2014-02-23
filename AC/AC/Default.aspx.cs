@@ -48,9 +48,9 @@ namespace AC
                 totalRowCount = 0;
                 return null;
             }
-            catch (ApplicationException ax)
+            catch (ConnectionException cx)
             {
-                ModelState.AddModelError("", ax.Message);
+                ModelState.AddModelError("", cx.Message);
                 totalRowCount = 0;
                 return null;
             }
@@ -64,9 +64,13 @@ namespace AC
                     Service.SaveContact(contact);
                     Response.Redirect("");
                 }
-                catch
+                catch(System.Data.SqlClient.SqlException sx)
                 {
                     ModelState.AddModelError("", "Ett oväntat fel inträffade vid skapandet av kontakten.");
+                }
+                catch (ConnectionException cx)
+                {
+                    ModelState.AddModelError("", cx.Message);
                 }
             }
             /*var item = new AC.Model.Contact();
@@ -108,6 +112,10 @@ namespace AC
                 catch (System.Data.SqlClient.SqlException ex)
                 {
                     ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid borttagning av kontakten."));
+                }
+                catch (ConnectionException cx)
+                {
+                    ModelState.AddModelError("", cx.Message);
                 }
             }
         }
