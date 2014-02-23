@@ -86,9 +86,13 @@ namespace AC
                         Response.Redirect("?page=0");
                     }
                 }
-                catch(Exception ex)
+                catch(ArgumentException ax)
                 {
-                    ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid uppdateringen av kontakten. {0}",ex.Message));
+                    ModelState.AddModelError("", String.Format("{0}",ax.Message));
+                }
+                catch (System.Data.SqlClient.SqlException ex)
+                {
+                    ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid borttagning av kontakten."));
                 }
             }
         }
@@ -99,6 +103,10 @@ namespace AC
             try
             {
                 Service.DeleteContact(contactId);
+            }
+            catch (ArgumentException ax)
+            {
+                ModelState.AddModelError("", String.Format("{0}", ax.Message));
             }
             catch(Exception ex)
             {
