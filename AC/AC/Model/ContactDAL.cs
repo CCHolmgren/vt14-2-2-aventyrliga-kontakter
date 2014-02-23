@@ -9,6 +9,14 @@ namespace AC.Model
 {
     public class ContactDAL : DALBase
     {
+        public bool IsValid(Contact contact)
+        {
+            if (contact.EmailAddress.Length < 51 && contact.FirstName.Length < 51 && contact.LastName.Length < 51)
+            {
+                return true;
+            }
+            return false;
+        }
         public void DeleteContact(int contactId)
         {
 
@@ -158,12 +166,16 @@ namespace AC.Model
                 }
                 catch
                 {
-                    throw;// new ApplicationException("An error occured while getting contacts page wise from the database.").Data = ;
+                    throw new ApplicationException("An error occured while getting contacts page wise from the database.");
                 }
             }
         }
         public void InsertContact(Contact contact)
         {
+            if (!IsValid(contact))
+            {
+                throw new ArgumentException("The contact did not verify as a correct contact. Firstname, Lastname and Emailaddress must have a length of at most 50 characters.");
+            }
             using (var conn = CreateConnection())
             {
                 SqlCommand cmd = new SqlCommand("Person.uspAddContact", conn);
@@ -183,6 +195,10 @@ namespace AC.Model
         }
         public void UpdateContact(Contact contact)
         {
+            if (!IsValid(contact))
+            {
+                throw new ArgumentException("The contact did not verify as a correct contact. Firstname, Lastname and Emailaddress must have a length of at most 50 characters.");
+            }
             using (var conn = CreateConnection())
             {
                 SqlCommand cmd = new SqlCommand("Person.uspUpdateContact", conn);

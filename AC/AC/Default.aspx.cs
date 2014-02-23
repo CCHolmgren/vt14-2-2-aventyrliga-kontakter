@@ -16,7 +16,6 @@ namespace AC
             get { return _service ?? (_service = new Service()); }
         }
 
-        private string _successMessage;
         private string SuccessMessage
         {
             get { return Session["SuccessMessage"] as string; }

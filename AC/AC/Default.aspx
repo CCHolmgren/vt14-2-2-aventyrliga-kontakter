@@ -32,9 +32,9 @@
                     </table>
                     <asp:DataPager PagedControlID="ListView1" runat="server" QueryStringField="page" PageSize="20">
                         <Fields>
-                            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowNextPageButton="false" ShowPreviousPageButton="false"/>
+                            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowNextPageButton="false" ShowPreviousPageButton="true"/>
                             <asp:NumericPagerField />
-                            <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="false" ShowPreviousPageButton="false"/>
+                            <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false"/>
                             <asp:TemplatePagerField>
                                 <PagerTemplate>
                                     <asp:Label Text="<%# Container.StartRowIndex %>" runat="server" />
