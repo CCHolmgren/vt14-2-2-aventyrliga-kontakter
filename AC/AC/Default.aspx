@@ -9,7 +9,7 @@
 <body>
     <form id="form1" runat="server">
         <div>
-            <asp:ValidationSummary ID="ValidationSummary1" runat="server" />
+            <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="Ett oväntat fel har uppståt. Åtgärda det och försök igen." />
             <asp:Button Text="Ny kontakt" ID="NewContactButton" OnClick="NewContactButton_Click" runat="server" />
             <asp:ListView ID="ListView1" runat="server" 
                 ItemType="AC.Model.Contact" 
@@ -66,22 +66,22 @@
                 </ItemTemplate>
                 <EditItemTemplate>
                     <td>
-                        <asp:TextBox runat="server" ID="FirstNameEdit" Text="<%# BindItem.FirstName %>"/>
-                        <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett förnamn." ControlToValidate="FirstNameEdit" runat="server" />
+                        <asp:TextBox runat="server" ID="FirstNameEdit" Text="<%# BindItem.FirstName %>" MaxLength="50" />
+                        <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett förnamn." ControlToValidate="FirstNameEdit" runat="server" Display="None" />
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="LastNameEdit" Text="<%# BindItem.LastName %>"/>  
-                        <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett efternamn." ControlToValidate="LastNameEdit" runat="server" />
+                        <asp:TextBox runat="server" ID="LastNameEdit" Text="<%# BindItem.LastName %>" MaxLength="50" />  
+                        <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett efternamn." ControlToValidate="LastNameEdit" runat="server" Display="None" />
                     </td>
                     <td>
-                        <asp:TextBox runat="server" ID="EmailAddressEdit" Text="<%# BindItem.EmailAddress %>"/>
-                        <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i en email-address." ControlToValidate="EmailAddressEdit" runat="server" />
+                        <asp:TextBox runat="server" ID="EmailAddressEdit" Text="<%# BindItem.EmailAddress %>" MaxLength="50" />
+                        <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i en email-address." ControlToValidate="EmailAddressEdit" runat="server" Display="None" />
                         <asp:RegularExpressionValidator 
                             ErrorMessage="Fyll i en giltig email-address"
                             ControlToValidate="EmailAddressEdit" 
                             ID="EmailAddressEditValidator" 
                             ValidationExpression="^.+@.+$" 
-                            runat="server" Display="Dynamic" />  
+                            runat="server" Display="None" />  
                     </td>
                     <td>
                         <asp:LinkButton CommandName="Update" runat="server" Text="Spara" />  
@@ -93,22 +93,22 @@
                 <InsertItemTemplate>
                     <tr>
                         <td>
-                            <asp:TextBox runat="server" ID="FirstNameInsert" Text="<%# BindItem.FirstName %>"/>
-                            <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett förnamn." ControlToValidate="FirstNameInsert" runat="server" />
+                            <asp:TextBox runat="server" ID="FirstNameInsert" Text="<%# BindItem.FirstName %>" MaxLength="50" />
+                            <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett förnamn." ControlToValidate="FirstNameInsert" runat="server" Display="None"  />
                         </td>
                         <td>
-                            <asp:TextBox runat="server" ID="LastNameInsert" Text="<%# BindItem.LastName %>"/>
-                            <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett efternamn." ControlToValidate="LastNameInsert" runat="server" />
+                            <asp:TextBox runat="server" ID="LastNameInsert" Text="<%# BindItem.LastName %>" MaxLength="50" />
+                            <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett efternamn." ControlToValidate="LastNameInsert" runat="server" Display="None"  />
                         </td>
                         <td>
-                            <asp:TextBox runat="server" ID="EmailAddressInsert" Text="<%# BindItem.EmailAddress %>"/>
-                            <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i en email-address." ControlToValidate="EmailAddressInsert" runat="server" />
+                            <asp:TextBox runat="server" ID="EmailAddressInsert" Text="<%# BindItem.EmailAddress %>" MaxLength="50" />
+                            <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i en email-address." ControlToValidate="EmailAddressInsert" runat="server" Display="None"  />
                             <asp:RegularExpressionValidator 
                                 ErrorMessage="Fyll i en giltig email-address."
                                 ControlToValidate="EmailAddressInsert" 
                                 ID="EmailAddressInsertValidator" 
                                 ValidationExpression=".+@.+" 
-                                runat="server" Display="Dynamic" />  
+                                runat="server" Display="None" />  
                         </td>
                         <td>
                             <asp:LinkButton Text="Lägg till" CommandName="Insert"  runat="server" />
