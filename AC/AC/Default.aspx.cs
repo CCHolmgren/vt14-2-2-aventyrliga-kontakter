@@ -38,7 +38,22 @@ namespace AC
         //     string sortByExpression
         public IEnumerable<AC.Model.Contact> ListView1_GetData(int maximumRows, int startRowIndex, out int totalRowCount, string sortByExpression)
         {
-            return Service.GetContactsPageWise(maximumRows, startRowIndex, out totalRowCount);
+            try
+            {
+                return Service.GetContactsPageWise(maximumRows, startRowIndex, out totalRowCount);
+            }
+            catch (System.Data.SqlClient.SqlException sx)
+            {
+                ModelState.AddModelError("", sx.Message);
+                totalRowCount = 0;
+                return null;
+            }
+            catch (ApplicationException ax)
+            {
+                ModelState.AddModelError("", ax.Message);
+                totalRowCount = 0;
+                return null;
+            }
         }
         public void ListView1_InsertItem(Contact contact)
         {

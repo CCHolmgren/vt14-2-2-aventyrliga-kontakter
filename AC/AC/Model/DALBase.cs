@@ -13,7 +13,15 @@ namespace AC.Model
 
         protected SqlConnection CreateConnection()
         {
-            return new SqlConnection(_connectionString);
+            try
+            {
+                SqlExtensions.QuickOpen(new SqlConnection(_connectionString), 5000);
+                return new SqlConnection(_connectionString);
+            }
+            catch
+            {
+                throw new ApplicationException("Anslutningen till servern misslyckades.");
+            }
         }
         public DALBase()
         {
