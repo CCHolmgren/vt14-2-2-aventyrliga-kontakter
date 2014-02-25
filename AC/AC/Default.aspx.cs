@@ -63,7 +63,8 @@ namespace AC
                 try
                 {
                     Service.SaveContact(contact);
-                    Response.Redirect("");
+                    DataPager dp = (DataPager)ListView1.FindControl("DataPager");
+                    Response.Redirect(String.Format("?page={0}",(dp.TotalRowCount/dp.PageSize)+1));
                 }
                 catch(System.Data.SqlClient.SqlException sx)
                 {
@@ -109,7 +110,7 @@ namespace AC
                         // Save changes here, e.g. MyDataLayer.SaveChanges();
                         Service.SaveContact(contact);
                         DataPager dp = (DataPager)ListView1.FindControl("DataPager");
-                        //Response.Redirect(String.Format("?page={0}",dp.StartRowIndex/dp.PageSize+1),true);
+                        Response.Redirect(String.Format("?page={0}",dp.StartRowIndex/dp.PageSize+1),true);
                     }
                 }
                 catch(ArgumentException ax)

@@ -61,7 +61,7 @@
                             <asp:LinkButton Text="Redigera" CommandName="Edit" runat="server" />
                         </td>
                         <td>
-                            <asp:LinkButton Text="Ta bort" CommandName="Delete" runat="server" />
+                            <asp:LinkButton OnclientClick="return confirm('Är du säker på att du vill ta bort kontakten?')" Text="Ta bort" CommandName="Delete" runat="server" />
                         </td>
                     </tr>
                 </ItemTemplate>

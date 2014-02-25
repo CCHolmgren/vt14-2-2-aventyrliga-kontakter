@@ -15,7 +15,7 @@ namespace AC.Model
             get;
             set;
         }
-        [StringLength(50, ErrorMessage="Emailaddressen kan inte vara längre än 50 tecken."), Required(ErrorMessage="Fyll i en emailaddress."), DataType(DataType.EmailAddress) ]
+        [StringLength(50, ErrorMessage="Emailaddressen kan inte vara längre än 50 tecken."), Required(ErrorMessage="Fyll i en emailaddress."), DataType(DataType.EmailAddress,ErrorMessage="Fyll i en korrekt emailaddress.") ]
         public string EmailAddress
         {
             get;
