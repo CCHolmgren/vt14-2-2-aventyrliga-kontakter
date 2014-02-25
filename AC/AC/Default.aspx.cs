@@ -31,13 +31,19 @@ namespace AC
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            ModelState.Remove("");
             ListView1.InsertItemPosition = InsertItemPosition.None;
             if (SuccessMessage != null)
             {
                 SuccessPanel.Visible = true;
                 SuccessLabel.Text = SuccessMessage;
-                Session.Remove("SuccessMessage");
+                //Session.Remove("SuccessMessage");
+                SuccessMessage = null;
             }
+        }
+        private void setModelState(string message, string caller)
+        {
+            //ModelState.AddModelError(String.Empty, message + caller);
         }
         protected void NewContactButton_Click(object sender, EventArgs e)
         {
@@ -58,13 +64,15 @@ namespace AC
             }
             catch (System.Data.SqlClient.SqlException sx)
             {
-                ModelState.AddModelError("", sx.Message);
+                setModelState(sx.Message, "GetData");
+                //ModelState.AddModelError("", sx.Message+"GetData");
                 totalRowCount = 0;
                 return null;
             }
             catch (ConnectionException cx)
             {
-                ModelState.AddModelError("", cx.Message);
+                setModelState(cx.Message, "GetData");
+                //ModelState.AddModelError("", cx.Message+"GetData");
                 totalRowCount = 0;
                 return null;
             }
@@ -81,16 +89,19 @@ namespace AC
                 }
                 catch (ArgumentException ax)
                 {
+                    ModelState.Remove("");
                     List<ValidationResult> vr = (List<ValidationResult>)ax.Data["ValidationResult"];
-                    vr.ForEach(x => ModelState.AddModelError("", x.ToString()+"Hej från InsertItem"));
+                    vr.ForEach(x => setModelState(x.ErrorMessage, "InsertItem"));
                 }
                 catch(System.Data.SqlClient.SqlException sx)
                 {
-                    ModelState.AddModelError("", "Ett oväntat fel inträffade vid skapandet av kontakten.");
+                    setModelState("Ett oväntat fel inträffade vid skapandet av kontakten.", "InsertItem");
+                    //ModelState.AddModelError("", "Ett oväntat fel inträffade vid skapandet av kontakten." + "InsertItem");
                 }
                 catch (ConnectionException cx)
                 {
-                    ModelState.AddModelError("", cx.Message);
+                    setModelState(cx.Message, "InsertItem");
+                    //ModelState.AddModelError("", cx.Message+"InsertItem");
                 }
             }
         }
@@ -107,13 +118,13 @@ namespace AC
                     if (contact == null)
                     {
                         // The item wasn't found
-                        ModelState.AddModelError("", String.Format("Item with id {0} was not found", contactId));
+                        setModelState("Item with id was not found", "UpdateItem");
+                        //ModelState.AddModelError("", String.Format("Item with id {0} was not found", contactId)+"UpdateItem");
                         return;
                     }
 
                     if (TryUpdateModel(contact))
                     {
-                        //ModelState.AddModelError("", vr.ToString());
                         // Save changes here, e.g. MyDataLayer.SaveChanges();
                         try
                         {
@@ -124,21 +135,24 @@ namespace AC
                         catch(ArgumentException ax)
                         {
                             List<ValidationResult> vr = (List<ValidationResult>)ax.Data["ValidationResult"];
-                            vr.ForEach(x => ModelState.AddModelError("", x.ToString()));
+                            vr.ForEach(x => setModelState(x.ErrorMessage, "UpdateItem"));
                         }
                         catch (System.Data.SqlClient.SqlException ex)
                         {
-                            ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid uppdateringen av kontakten."));
+                            setModelState("Ett oväntat fel inträffade vid uppdateringen av kontakten.", "InsertItem");
+                            //ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid uppdateringen av kontakten."+"UpdateItem"));
                         }
                     }
                 }
                 catch(ArgumentException ax)
                 {
-                    ModelState.AddModelError("", String.Format("{0}",ax.Message));
+                    setModelState(ax.Message, "UpdateItemOuter");
+                    //ModelState.AddModelError("", String.Format("{0}",ax.Message)+"UpdateItemOuter");
                 }
                 catch (ConnectionException cx)
                 {
-                    ModelState.AddModelError("", cx.Message);
+                    setModelState(cx.Message, "UpdateItem");
+                    //ModelState.AddModelError("", cx.Message+"UpdateItem");
                 }
             }
         }
@@ -153,11 +167,13 @@ namespace AC
             }
             catch (ArgumentException ax)
             {
-                ModelState.AddModelError("", String.Format("{0}", ax.Message));
+                setModelState(ax.Message, "DeleteItem");
+                //ModelState.AddModelError("", String.Format("{0}", ax.Message)+"DeleteItem");
             }
             catch(Exception ex)
             {
-                ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid borttagningen av kontakten. {0}",ex.Message));
+                setModelState("Ett oväntat fel inträffade vid borttagningen av kontakten.", "DeleteItem");
+                //ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid borttagningen av kontakten. {0}",ex.Message)+"DeleteItem");
             }
         }
     }
