@@ -1,0 +1,53 @@
+﻿body {
+}
+ol{
+    list-style-type: none;
+}
+img {
+}
+.largeimage {
+    width: 60%;
+}
+.largeimage img {
+    width: 100%;
+}
+.imageswitcher {
+    display: inline-block;
+}
+.imageswitcher a {
+    width:60px;
+    height:45px;
+    display:inline-block;
+}
+.liimageswitcher {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: 70px;
+    width: 60%;
+    white-space: nowrap;
+}
+.currentimage {
+    border: 2px solid green;
+}
+.successcontainer {
+    width:60%;
+    height: 100px;
+    border: 1px solid black;
+    background-color:gainsboro;
+}
+.successmessage {
+    display: inline-block;
+    margin-top: 40px;
+    margin-left: 20px;
+}
+.successbutton {
+    float: right;
+    margin-right: 10px;
+    margin-top: 5px;
+    display: inline-block;
+    background-color: #000;
+    padding: 2px 4px;
+    text-decoration: none;
+    color: white;
+    border-radius: 2px 2px;
+}
