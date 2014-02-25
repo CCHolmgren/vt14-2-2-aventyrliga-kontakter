@@ -12,7 +12,7 @@ namespace AC.Model
 {
     public static class SqlExtensions
     {
-        public static void QuickOpen(this SqlConnection conn, int timeout, string errorMessage)
+        public static void QuickOpen(this SqlConnection conn, int timeout, string errorMessage = "Timed out while trying to connect.")
         {
             // We'll use a Stopwatch here for simplicity. A comparison to a stored DateTime.Now value could also be used
             Stopwatch sw = new Stopwatch();
