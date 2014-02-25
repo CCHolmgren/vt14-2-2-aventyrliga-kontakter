@@ -21,7 +21,7 @@ namespace AC.Model
             get;
             set;
         }
-        [StringLength(50, ErrorMessage="Förnamnet kan inte vara längre än 50 tecken."),Required(ErrorMessage="Fyll i ett förnamn.")]
+        [StringLength(50, ErrorMessage="Förnamnet kan inte vara längre än 50 tecken myes."),Required(ErrorMessage="Fyll i ett förnamn.")]
         public string FirstName
         {
             get;
@@ -32,6 +32,11 @@ namespace AC.Model
         {
             get;
             set;
+        }
+        public List<ValidationResult> Validate(ref List<ValidationResult> vr,bool validateAll)
+        {
+            Validator.TryValidateObject(this, new ValidationContext(this), vr, validateAll);
+            return vr;
         }
     }
 }

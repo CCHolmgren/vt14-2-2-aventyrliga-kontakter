@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
@@ -45,14 +46,6 @@ namespace AC.Model
     }
     public class ContactDAL : DALBase
     {
-        /*public bool IsValid(Contact contact)
-        {
-            if (contact.EmailAddress.Length < 51 && contact.FirstName.Length < 51 && contact.LastName.Length < 51)
-            {
-                return true;
-            }
-            return false;
-        }*/
         public void DeleteContact(int contactId)
         {
 
@@ -166,39 +159,6 @@ namespace AC.Model
                         }
                     }
                     return contacts;
-
-                    /*var cmd = new SqlCommand("Person.uspGetContactsPageWise", conn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add("@PageIndex", SqlDbType.Int, 4).Value = startRowIndex / maximumRows + 1;
-                    cmd.Parameters.Add("@PageSize", SqlDbType.Int, 4).Value = maximumRows;
-
-                    cmd.Parameters.Add("@RecordCount", SqlDbType.Int, 4).Direction = ParameterDirection.Output;
-
-                    conn.Open();
-
-                    cmd.ExecuteNonQuery();
-
-                    totalRowCount = (int)cmd.Parameters["@RecordCount"].Value;
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        var contactIdIndex = reader.GetOrdinal("ContactID");
-                        var emailAddressIndex = reader.GetOrdinal("EmailAddress");
-                        var firstNameIndex = reader.GetOrdinal("FirstName");
-                        var lastNameIndex = reader.GetOrdinal("LastName");
-
-                        while (reader.Read())
-                        {
-                            contacts.Add(new Contact
-                            {
-                                ContactId = reader.GetInt32(contactIdIndex),
-                                EmailAddress = reader.GetString(emailAddressIndex),
-                                FirstName = reader.GetString(firstNameIndex),
-                                LastName = reader.GetString(lastNameIndex)
-                            });
-                        }
-                    }*/
                 }
                 catch
                 {

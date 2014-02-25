@@ -16,7 +16,14 @@ namespace AC
         {
             get { return _service ?? (_service = new Service()); }
         }
-
+        private DataPager _datapager;
+        private DataPager DataPager
+        {
+            get
+            {
+                return _datapager ?? (_datapager = (DataPager)ListView1.FindControl("DataPager"));
+            }
+        }
         private string SuccessMessage
         {
             get { return Session["SuccessMessage"] as string; }
@@ -69,9 +76,13 @@ namespace AC
                 try
                 {
                     Service.SaveContact(contact);
-                    DataPager dp = (DataPager)ListView1.FindControl("DataPager");
                     SuccessMessage = String.Format("Kontakten har lagts till.");
-                    Response.Redirect(String.Format("?page={0}",(dp.TotalRowCount/dp.PageSize)+1));
+                    Response.Redirect(String.Format("?page={0}",(DataPager.TotalRowCount/DataPager.PageSize)+1));
+                }
+                catch (ArgumentException ax)
+                {
+                    List<ValidationResult> vr = (List<ValidationResult>)ax.Data["ValidationResult"];
+                    vr.ForEach(x => ModelState.AddModelError("", x.ToString()+"Hej från InsertItem"));
                 }
                 catch(System.Data.SqlClient.SqlException sx)
                 {
@@ -82,13 +93,6 @@ namespace AC
                     ModelState.AddModelError("", cx.Message);
                 }
             }
-            /*var item = new AC.Model.Contact();
-            TryUpdateModel(item);
-            if (ModelState.IsValid)
-            {
-                // Save changes here
-
-            }*/
         }
 
         // The id parameter name should match the DataKeyNames value set on the control
@@ -109,25 +113,28 @@ namespace AC
 
                     if (TryUpdateModel(contact))
                     {
-                        List<ValidationResult> vr = new List<ValidationResult>();
-                        Validator.TryValidateObject(contact, new ValidationContext(contact), vr, true);
-                        vr.ForEach(x => ModelState.AddModelError("", x.ToString()));
-                        ModelState.AddModelError("", "längd: " + vr.Count);
                         //ModelState.AddModelError("", vr.ToString());
                         // Save changes here, e.g. MyDataLayer.SaveChanges();
-                        Service.SaveContact(contact);
-                        DataPager dp = (DataPager)ListView1.FindControl("DataPager");
-                        SuccessMessage = String.Format("Kontakten uppdaterades.");
-                        Response.Redirect(String.Format("?page={0}",dp.StartRowIndex/dp.PageSize+1),true);
+                        try
+                        {
+                            Service.SaveContact(contact);
+                            SuccessMessage = String.Format("Kontakten uppdaterades.");
+                            Response.Redirect(String.Format("?page={0}", DataPager.StartRowIndex / DataPager.PageSize + 1), true);
+                        }
+                        catch(ArgumentException ax)
+                        {
+                            List<ValidationResult> vr = (List<ValidationResult>)ax.Data["ValidationResult"];
+                            vr.ForEach(x => ModelState.AddModelError("", x.ToString()));
+                        }
+                        catch (System.Data.SqlClient.SqlException ex)
+                        {
+                            ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid uppdateringen av kontakten."));
+                        }
                     }
                 }
                 catch(ArgumentException ax)
                 {
                     ModelState.AddModelError("", String.Format("{0}",ax.Message));
-                }
-                catch (System.Data.SqlClient.SqlException ex)
-                {
-                    ModelState.AddModelError("", String.Format("Ett oväntat fel inträffade vid uppdateringen av kontakten."));
                 }
                 catch (ConnectionException cx)
                 {

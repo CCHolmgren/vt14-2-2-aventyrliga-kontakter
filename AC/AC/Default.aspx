@@ -12,7 +12,7 @@
     <form id="form1" runat="server">
         <div>
             <asp:Panel ID="SuccessPanel" CssClass="successcontainer" Visible="false" runat="server">
-                <asp:Label ID="UploadLabel" Text="" CssClass="successmessage" runat="server" />
+                <asp:Label ID="SuccessLabel" Text="" CssClass="successmessage" runat="server" />
                 <a href="#" class="successbutton" id="successbutton">X</a>
             </asp:Panel>
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" HeaderText="Ett oväntat fel har uppståt. Åtgärda det och försök igen." />
@@ -103,7 +103,7 @@
                 <InsertItemTemplate>
                     <tr>
                         <td>
-                            <asp:TextBox runat="server" ID="FirstNameInsert" Text="<%# BindItem.FirstName %>" MaxLength="50" />
+                            <asp:TextBox runat="server" ID="FirstNameInsert" Text="<%# BindItem.FirstName %>" MaxLength="100" />
                             <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i ett förnamn." ControlToValidate="FirstNameInsert" runat="server" Display="None"  />
                         </td>
                         <td>

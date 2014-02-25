@@ -34,6 +34,14 @@ namespace AC.Model
         }
         public void SaveContact(Contact contact) 
         {
+            List<ValidationResult> vr = new List<ValidationResult>();
+            contact.Validate(ref vr, true);
+            if (vr.Count > 0)
+            {
+                ArgumentException ax = new ArgumentException();
+                ax.Data.Add("ValidationResult", vr);
+                throw ax;
+            }
             if (contact.ContactId == 0)
             {
                 ContactDAL.InsertContact(contact);
