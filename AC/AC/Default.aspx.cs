@@ -25,6 +25,12 @@ namespace AC
         protected void Page_Load(object sender, EventArgs e)
         {
             ListView1.InsertItemPosition = InsertItemPosition.None;
+            if (SuccessMessage != null)
+            {
+                UploadPanel.Visible = true;
+                UploadLabel.Text = SuccessMessage;
+                Session.Remove("SuccessMessage");
+            }
         }
         protected void NewContactButton_Click(object sender, EventArgs e)
         {
@@ -64,6 +70,7 @@ namespace AC
                 {
                     Service.SaveContact(contact);
                     DataPager dp = (DataPager)ListView1.FindControl("DataPager");
+                    SuccessMessage = String.Format("Kontakten har lagts till.");
                     Response.Redirect(String.Format("?page={0}",(dp.TotalRowCount/dp.PageSize)+1));
                 }
                 catch(System.Data.SqlClient.SqlException sx)
@@ -110,6 +117,7 @@ namespace AC
                         // Save changes here, e.g. MyDataLayer.SaveChanges();
                         Service.SaveContact(contact);
                         DataPager dp = (DataPager)ListView1.FindControl("DataPager");
+                        SuccessMessage = String.Format("Kontakten uppdaterades.");
                         Response.Redirect(String.Format("?page={0}",dp.StartRowIndex/dp.PageSize+1),true);
                     }
                 }
@@ -134,6 +142,7 @@ namespace AC
             try
             {
                 Service.DeleteContact(contactId);
+                SuccessMessage = String.Format("Kontakten togs bort.");
             }
             catch (ArgumentException ax)
             {

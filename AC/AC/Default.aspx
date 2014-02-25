@@ -10,6 +10,10 @@
     <h1>Äventyrliga kontakter</h1>
     <form id="form1" runat="server">
         <div>
+            <asp:Panel ID="UploadPanel" CssClass="successcontainer" Visible="false" runat="server">
+                <asp:Label ID="UploadLabel" Text="" CssClass="successmessage" runat="server" />
+                <a href="#" class="successbutton" id="successbutton">X</a>
+            </asp:Panel>
             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ForeColor="Red" HeaderText="Ett oväntat fel har uppståt. Åtgärda det och försök igen." />
             <asp:Button Text="Ny kontakt" ID="NewContactButton" OnClick="NewContactButton_Click" runat="server" />
             <asp:ListView ID="ListView1" runat="server" 
