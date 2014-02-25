@@ -12,7 +12,7 @@ namespace AC.Model
 {
     public static class SqlExtensions
     {
-        public static void QuickOpen(this SqlConnection conn, int timeout)
+        public static void QuickOpen(this SqlConnection conn, int timeout, string errorMessage)
         {
             // We'll use a Stopwatch here for simplicity. A comparison to a stored DateTime.Now value could also be used
             Stopwatch sw = new Stopwatch();
@@ -41,7 +41,7 @@ namespace AC.Model
 
             // If we didn't connect successfully, throw an exception
             if (!connectSuccess)
-                throw new Exception("Timed out while trying to connect.");
+                throw new ConnectionException(errorMessage);
         }
     }
     public class ContactDAL : DALBase
