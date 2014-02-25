@@ -31,16 +31,18 @@
                         </tr>
                     <asp:PlaceHolder runat="server" ID="itemPlaceholder"/>
                     </table>
+                    <%-- Pagination --%>
                     <asp:DataPager PagedControlID="ListView1" ID="DataPager" runat="server" QueryStringField="page" PageSize="20">
                         <Fields>
-                            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowNextPageButton="false" ShowPreviousPageButton="true"/>
-                            <asp:NumericPagerField />
-                            <asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false"/>
+                            <asp:NextPreviousPagerField ButtonType="Button" ShowFirstPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="true" ShowLastPageButton="true"/>
+                            <%--<asp:NumericPagerField />--%>
+                            <%--<asp:NextPreviousPagerField ButtonType="Button" ShowLastPageButton="true" ShowNextPageButton="true" ShowPreviousPageButton="false"/>--%>
                             <asp:TemplatePagerField>
                                 <PagerTemplate>
-                                    <asp:Label Text="<%# Container.StartRowIndex %>" runat="server" />
-                                    <asp:Label Text="<%# Container.StartRowIndex+Container.PageSize %>" runat="server"/>
-                                    <asp:Label Text="<%# Container.TotalRowCount %>" runat="server" />
+                                    <br />
+                                        Visar <asp:Label Text="<%# Container.StartRowIndex %>" runat="server" /> till 
+                                        <asp:Label Text="<%# Container.StartRowIndex+Container.PageSize %>" runat="server"/> (av
+                                        <asp:Label Text="<%# Container.TotalRowCount %>" runat="server" />)
                                 </PagerTemplate>
                             </asp:TemplatePagerField>
                         </Fields>
@@ -65,6 +67,7 @@
                         </td>
                     </tr>
                 </ItemTemplate>
+                <%-- Template for editing existing items --%>
                 <EditItemTemplate>
                     <td>
                         <asp:TextBox runat="server" ID="FirstNameEdit" Text="<%# BindItem.FirstName %>" MaxLength="50" />
@@ -91,6 +94,7 @@
                         <asp:LinkButton CommandName="Cancel" CausesValidation="false" runat="server" Text="Avbryt"/>  
                     </td>
                 </EditItemTemplate>
+                <%-- Template for inserting new items --%>
                 <InsertItemTemplate>
                     <tr>
                         <td>
