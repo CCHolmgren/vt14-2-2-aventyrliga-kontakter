@@ -27,8 +27,8 @@ namespace AC
             ListView1.InsertItemPosition = InsertItemPosition.None;
             if (SuccessMessage != null)
             {
-                UploadPanel.Visible = true;
-                UploadLabel.Text = SuccessMessage;
+                SuccessPanel.Visible = true;
+                SuccessLabel.Text = SuccessMessage;
                 Session.Remove("SuccessMessage");
             }
         }
