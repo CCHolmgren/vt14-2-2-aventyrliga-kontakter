@@ -65,6 +65,13 @@ namespace AC.Model
         /// <param name="contact"></param>
         public void SaveContact(Contact contact) 
         {
+            ICollection<ValidationResult> validationResult;
+            if (!contact.Validate(out validationResult))
+            {
+                var vx = new ValidationException("Objektet klarade inte valideringen.");
+                vx.Data.Add("validationResult", validationResult);
+                throw vx;
+            }
             if (contact.ContactId == 0)
             {
                 ContactDAL.InsertContact(contact);

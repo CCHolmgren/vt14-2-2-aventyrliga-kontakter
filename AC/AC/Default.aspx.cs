@@ -11,12 +11,23 @@ namespace AC
 {
     public partial class Default : System.Web.UI.Page
     {
+        /// <summary>
+        /// Represents a Service object
+        /// If there isn't already one, create a new one
+        /// </summary>
         private Service _service;
         private Service Service { get { return _service ?? (_service = new Service()); } }
 
+        /// <summary>
+        /// Returns the DataPager that is associated with ListView1
+        /// </summary>
         private DataPager _datapager;
         private DataPager DataPager { get { return _datapager ?? (_datapager = (DataPager)ListView1.FindControl("DataPager")); } }
 
+        /// <summary>
+        /// Represents the Session["SuccessMessage"]
+        /// But in an easier format
+        /// </summary>
         private string SuccessMessage 
         {
             get { return Session["SuccessMessage"] as string; }
@@ -25,8 +36,7 @@ namespace AC
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //If this is set to default we would have the Insert row all the time
-            ListView1.InsertItemPosition = InsertItemPosition.None;
+            //ListView1.InsertItemPosition = InsertItemPosition.None;
             if (SuccessMessage != null)
             {
                 SuccessPanel.Visible = true;
@@ -34,6 +44,11 @@ namespace AC
                 SuccessMessage = null;
             }
         }
+        /// <summary>
+        /// Adds a ModelError with the given message
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="caller"></param>
         private void setModelState(string message, string caller = null)
         {
             ModelState.AddModelError(String.Empty, message + caller);
@@ -70,7 +85,7 @@ namespace AC
         }
         public void ListView1_InsertItem(Contact contact)
         {
-            if (Page.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -78,6 +93,11 @@ namespace AC
                     SuccessMessage = String.Format("Kontakten har lagts till.");
                     //Inserted items get put at the last page, so Redirect to that page which is TotalRowCount/PageSizse+1
                     Response.Redirect(String.Format("?page={0}",(DataPager.TotalRowCount/DataPager.PageSize)+1));
+                }
+                catch (ValidationException vx)
+                {
+                    var validationResult = vx.Data["validationResult"] as List<ValidationResult>;
+                    validationResult.ForEach(r => ModelState.AddModelError(String.Empty, r.ErrorMessage));
                 }
                 catch(System.Data.SqlClient.SqlException sx)
                 {
@@ -93,7 +113,7 @@ namespace AC
         // The id parameter name should match the DataKeyNames value set on the control
         public void ListView1_UpdateItem(int contactId)
         {
-            if (Page.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
@@ -118,6 +138,11 @@ namespace AC
                         catch (System.Data.SqlClient.SqlException ex)
                         {
                             setModelState("Ett oväntat fel inträffade vid uppdateringen av kontakten.");
+                        }
+                        catch (ValidationException vx)
+                        {
+                            var validationResult = vx.Data["validationResult"] as List<ValidationResult>;
+                            validationResult.ForEach(r => ModelState.AddModelError(String.Empty, r.ErrorMessage));
                         }
                     }
                 }

@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
 namespace AC.Model
 {
-    [MetadataType(typeof(Contact))]
-    public partial class ContactPartial { }
     public class Contact
     {
         public int ContactId
@@ -15,7 +14,10 @@ namespace AC.Model
             get;
             set;
         }
-        [StringLength(50, ErrorMessage="Emailaddressen kan inte vara längre än 50 tecken."), Required(ErrorMessage="Fyll i en emailaddress."), DataType(DataType.EmailAddress,ErrorMessage="Fyll i en korrekt emailaddress.") ]
+        [StringLength(50, ErrorMessage="Emailaddressen kan inte vara längre än 50 tecken.")]
+        [Required(ErrorMessage="Fyll i en emailaddress.")]
+        [RegularExpression(@".+@.+", ErrorMessage="Skriv in en giltig emailadress.")]
+        [DataType(DataType.EmailAddress)]
         public string EmailAddress
         {
             get;
@@ -34,4 +36,14 @@ namespace AC.Model
             set;
         }
     }
+    public static class ValidationExtensions
+    {
+        public static bool Validate<T>(this T instance, out ICollection<ValidationResult> validationResults)
+        {
+            var validationContext = new ValidationContext(instance);
+            validationResults = new List<ValidationResult>();
+            return Validator.TryValidateObject(instance, validationContext, validationResults, true);
+        }
+    }
+
 }

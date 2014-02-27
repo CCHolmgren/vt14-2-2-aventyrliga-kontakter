@@ -24,7 +24,7 @@
                 InsertMethod="ListView1_InsertItem"
                 UpdateMethod="ListView1_UpdateItem"
                 DeleteMethod="ListView1_DeleteItem" 
-                InsertItemPosition="FirstItem"
+                InsertItemPosition="None"
                 DataKeyNames="contactId" ViewStateMode="Enabled">
                 <LayoutTemplate>
                     <table>
@@ -47,7 +47,7 @@
                                 <PagerTemplate>
                                     <br />
                                         Visar <asp:Label Text="<%# Container.StartRowIndex %>" runat="server" /> till 
-                                        <asp:Label Text="<%# Container.StartRowIndex+Container.PageSize %>" runat="server"/> (av
+                                        <asp:Label Text="<%# (Container.TotalRowCount < Container.StartRowIndex+Container.PageSize)?Container.StartRowIndex+Container.PageSize:Container.TotalRowCount %>" runat="server"/> (av
                                         <asp:Label Text="<%# Container.TotalRowCount %>" runat="server" />)
                                 </PagerTemplate>
                             </asp:TemplatePagerField>
