@@ -47,7 +47,7 @@
                                 <PagerTemplate>
                                     <br />
                                         Visar <asp:Label Text="<%# Container.StartRowIndex %>" runat="server" /> till 
-                                        <asp:Label Text="<%# (Container.TotalRowCount < Container.StartRowIndex+Container.PageSize)?Container.StartRowIndex+Container.PageSize:Container.TotalRowCount %>" runat="server"/> (av
+                                        <asp:Label Text="<%# (Container.StartRowIndex+Container.PageSize>Container.TotalRowCount)?Container.TotalRowCount:Container.StartRowIndex+Container.PageSize %>" runat="server"/> (av
                                         <asp:Label Text="<%# Container.TotalRowCount %>" runat="server" />)
                                 </PagerTemplate>
                             </asp:TemplatePagerField>
@@ -86,12 +86,12 @@
                     <td>
                         <asp:TextBox runat="server" ID="EmailAddressEdit" Text="<%# BindItem.EmailAddress %>" MaxLength="50" />
                         <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i en email-address." ControlToValidate="EmailAddressEdit" runat="server" Display="None" />
-                        <asp:RegularExpressionValidator 
+                        <%--<asp:RegularExpressionValidator 
                             ErrorMessage="Fyll i en giltig email-address"
                             ControlToValidate="EmailAddressEdit" 
                             ID="EmailAddressEditValidator" 
                             ValidationExpression="^.+@.+$" 
-                            runat="server" Display="None" />
+                            runat="server" Display="None" />--%>
                     </td>
                     <td>
                         <asp:LinkButton CommandName="Update" runat="server" Text="Spara" />  
