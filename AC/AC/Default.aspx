@@ -86,12 +86,12 @@
                     <td>
                         <asp:TextBox runat="server" ID="EmailAddressEdit" Text="<%# BindItem.EmailAddress %>" MaxLength="50" />
                         <asp:RequiredFieldValidator ErrorMessage="Du måste fylla i en email-address." ControlToValidate="EmailAddressEdit" runat="server" Display="None" />
-                        <%--<asp:RegularExpressionValidator 
+                        <asp:RegularExpressionValidator 
                             ErrorMessage="Fyll i en giltig email-address"
                             ControlToValidate="EmailAddressEdit" 
                             ID="EmailAddressEditValidator" 
                             ValidationExpression="^.+@.+$" 
-                            runat="server" Display="None" />--%>
+                            runat="server" Display="None" />
                     </td>
                     <td>
                         <asp:LinkButton CommandName="Update" runat="server" Text="Spara" />  
