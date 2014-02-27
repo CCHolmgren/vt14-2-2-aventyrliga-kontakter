@@ -139,6 +139,7 @@ namespace AC
             {
                 Service.DeleteContact(contactId);
                 SuccessMessage = String.Format("Kontakten togs bort.");
+                Response.Redirect(String.Format("?page={0}", DataPager.StartRowIndex / DataPager.PageSize + 1));
             }
             catch (ArgumentException ax)
             {
