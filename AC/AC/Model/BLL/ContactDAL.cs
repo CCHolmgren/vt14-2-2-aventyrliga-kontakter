@@ -12,6 +12,12 @@ namespace AC.Model
 {
     public static class SqlExtensions
     {
+        /// <summary>
+        /// Quickly open a sqlconnection and if it doesn't respond in the timeout time, throw a ConnectionError with the errorMessage
+        /// </summary>
+        /// <param name="conn">The sqlconnection that you are about to connect to</param>
+        /// <param name="timeout">The timeout time in ms</param>
+        /// <param name="errorMessage">The errormessage that the ConnectionException will have</param>
         public static void QuickOpen(this SqlConnection conn, int timeout, string errorMessage = "Timed out while trying to connect.")
         {
             // We'll use a Stopwatch here for simplicity. A comparison to a stored DateTime.Now value could also be used
@@ -46,6 +52,10 @@ namespace AC.Model
     }
     public class ContactDAL : DALBase
     {
+        /// <summary>
+        /// Deletes the contact with the given contactId
+        /// </summary>
+        /// <param name="contactId">Integer representing a contact</param>
         public void DeleteContact(int contactId)
         {
 
@@ -59,6 +69,11 @@ namespace AC.Model
                 cmd.ExecuteNonQuery();
             }
         }
+        /// <summary>
+        /// Get a given contact given a contactId
+        /// </summary>
+        /// <param name="contactId">Integer representing a contact</param>
+        /// <returns></returns>
         public Contact GetContactById(int contactId)
         {
             using (var conn = CreateConnection())
@@ -91,6 +106,10 @@ namespace AC.Model
             return null;
             }
         }
+        /// <summary>
+        /// Get all contacts
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<Contact> GetContacts()
         {
             using (var conn = CreateConnection())
@@ -123,6 +142,15 @@ namespace AC.Model
             return null;
             }
         }
+        /// <summary>
+        /// GetContactsPageWise is used by the ListView to populate it with pagination
+        /// Gets maximumRows amount of contacts given a startRowIndex
+        /// Sets totalRowCount based on the query
+        /// </summary>
+        /// <param name="maximumRows">Amount of rows to get</param>
+        /// <param name="startRowIndex">Index to start on.</param>
+        /// <param name="totalRowCount"></param>
+        /// <returns></returns>
         public IEnumerable<Contact> GetContactsPageWise(int maximumRows, int startRowIndex, out int totalRowCount)
         {
             using (var conn = CreateConnection())
@@ -166,6 +194,10 @@ namespace AC.Model
                 }
             }
         }
+        /// <summary>
+        /// Creates a new element in the database and put the contact into it
+        /// </summary>
+        /// <param name="contact"></param>
         public void InsertContact(Contact contact)
         {
             using (var conn = CreateConnection())
@@ -185,6 +217,10 @@ namespace AC.Model
                 contact.ContactId = (int)cmd.Parameters["@ContactID"].Value;
             }
         }
+        /// <summary>
+        /// Update a already existing contact with the new information
+        /// </summary>
+        /// <param name="contact"></param>
         public void UpdateContact(Contact contact)
         {
             using (var conn = CreateConnection())

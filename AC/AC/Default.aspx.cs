@@ -12,29 +12,25 @@ namespace AC
     public partial class Default : System.Web.UI.Page
     {
         private Service _service;
-        private Service Service
-        {
-            get { return _service ?? (_service = new Service()); }
-        }
+        private Service Service { get { return _service ?? (_service = new Service()); } }
+
         private DataPager _datapager;
-        private DataPager DataPager
-        {
-            get { return _datapager ?? (_datapager = (DataPager)ListView1.FindControl("DataPager")); }
-        }
-        private string SuccessMessage
+        private DataPager DataPager { get { return _datapager ?? (_datapager = (DataPager)ListView1.FindControl("DataPager")); } }
+
+        private string SuccessMessage 
         {
             get { return Session["SuccessMessage"] as string; }
-            set { Session["SuccessMessage"] = value; }
+            set { Session["SuccessMessage"] = value; } 
         }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            ModelState.Remove("");
+            //If this is set to default we would have the Insert row all the time
             ListView1.InsertItemPosition = InsertItemPosition.None;
             if (SuccessMessage != null)
             {
                 SuccessPanel.Visible = true;
                 SuccessLabel.Text = SuccessMessage;
-                //Session.Remove("SuccessMessage");
                 SuccessMessage = null;
             }
         }
@@ -80,6 +76,7 @@ namespace AC
                 {
                     Service.SaveContact(contact);
                     SuccessMessage = String.Format("Kontakten har lagts till.");
+                    //Inserted items get put at the last page, so Redirect to that page which is TotalRowCount/PageSizse+1
                     Response.Redirect(String.Format("?page={0}",(DataPager.TotalRowCount/DataPager.PageSize)+1));
                 }
                 catch(System.Data.SqlClient.SqlException sx)

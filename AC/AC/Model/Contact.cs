@@ -33,10 +33,5 @@ namespace AC.Model
             get;
             set;
         }
-        /*public List<ValidationResult> ValidatorFunction(ref List<ValidationResult> vr,bool validateAll)
-        {
-            Validator.TryValidateObject(this, new ValidationContext(this), vr, validateAll);
-            return vr;
-        }*/
     }
 }
